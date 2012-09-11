@@ -20,7 +20,7 @@
         <SplashScreen Image="images\splashscreen.png" />
       </VisualElements>
       <Extensions>
-        <Extension Category="windows.fileOpenPicker">
+        <Extension Category="windows.fileOpenPicker" StartPage="open-picker.html">
           <FileOpenPicker>
             <SupportedFileTypes>
               <FileType>.jpg</FileType>
@@ -29,7 +29,7 @@
             </SupportedFileTypes>
           </FileOpenPicker>
         </Extension>
-        <Extension Category="windows.fileSavePicker">
+        <Extension Category="windows.fileSavePicker" StartPage="save-picker.html">
           <FileSavePicker>
             <SupportedFileTypes>
               <FileType>.jpg</FileType>
@@ -38,7 +38,7 @@
             </SupportedFileTypes>
           </FileSavePicker>
         </Extension>
-        <Extension Category="windows.shareTarget">
+        <Extension Category="windows.shareTarget" StartPage="share-target.html">
           <ShareTarget>
             <SupportedFileTypes>
               <FileType>.jpg</FileType>
