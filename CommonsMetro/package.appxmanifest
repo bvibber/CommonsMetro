@@ -1,48 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-
-  <Identity
-    Name="8ad86e3f-6f8b-4f25-94a9-fd71bf937544"
-    Version="1.0.0.0"
-    Publisher="CN=Brion" />
-
+  <Identity Name="8ad86e3f-6f8b-4f25-94a9-fd71bf937544" Version="1.0.0.0" Publisher="CN=Brion" />
   <Properties>
     <DisplayName>CommonsMetro</DisplayName>
     <PublisherDisplayName>Brion</PublisherDisplayName>
     <Logo>images\storelogo.png</Logo>
   </Properties>
-
   <Prerequisites>
     <OSMinVersion>6.2.1</OSMinVersion>
     <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
   </Prerequisites>
-
   <Resources>
     <Resource Language="x-generate" />
   </Resources>
-
   <Applications>
-    <Application 
-      Id="App"
-      StartPage="default.html">
-
-      <VisualElements
-        DisplayName="CommonsMetro"
-        Logo="images\logo.png"
-        SmallLogo="images\smalllogo.png"
-        Description="CommonsMetro"
-        ForegroundText="light"
-        BackgroundColor="#464646">
-
+    <Application Id="App" StartPage="default.html">
+      <VisualElements DisplayName="Wikimedia Commons" Logo="images\logo.png" SmallLogo="images\smalllogo.png" Description="Wikimedia Commons file browser, picker, and uploader." ForegroundText="dark" BackgroundColor="#ffffff">
         <DefaultTile ShowName="allLogos" />
         <SplashScreen Image="images\splashscreen.png" />
-
       </VisualElements>
+      <Extensions>
+        <Extension Category="windows.fileOpenPicker">
+          <FileOpenPicker>
+            <SupportedFileTypes>
+              <FileType>.jpg</FileType>
+              <FileType>.png</FileType>
+              <FileType>.gif</FileType>
+            </SupportedFileTypes>
+          </FileOpenPicker>
+        </Extension>
+        <Extension Category="windows.fileSavePicker">
+          <FileSavePicker>
+            <SupportedFileTypes>
+              <FileType>.jpg</FileType>
+              <FileType>.png</FileType>
+              <FileType>.gif</FileType>
+            </SupportedFileTypes>
+          </FileSavePicker>
+        </Extension>
+        <Extension Category="windows.shareTarget">
+          <ShareTarget>
+            <SupportedFileTypes>
+              <FileType>.jpg</FileType>
+              <FileType>.png</FileType>
+              <FileType>.gif</FileType>
+            </SupportedFileTypes>
+            <DataFormat>Bitmap</DataFormat>
+          </ShareTarget>
+        </Extension>
+      </Extensions>
     </Application>
   </Applications>
-
   <Capabilities>
     <Capability Name="internetClient" />
   </Capabilities>
-
 </Package>
