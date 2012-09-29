@@ -11,9 +11,41 @@
 
     <!-- CommonsMetro references -->
     <link href="/css/default.css" rel="stylesheet" />
+    <script src="/js/jquery-1.7.1.min.js"></script>
+    <script src="/js/commons-api.js"></script>
+    <script src="/js/imagefetcher.js"></script>
+    <script src="/js/categories.js"></script>
     <script src="/js/default.js"></script>
 </head>
 <body>
-    <p>TODO: photo browser</p>
+    <div class="header">
+        <button id="back" class="win-backbutton"></button>
+        <h1 id="title">Wikimedia Commons</h1>
+    </div>
+    <progress id="spinner"></progress>
+    <div class="hub" id="hub">
+        <div id="hubItemTemplate" data-win-control="WinJS.Binding.Template">
+            <div data-win-bind="className: style">
+                <img src="#" data-win-bind="id: imageid" />
+                <h4 data-win-bind="innerText: title" style="font-weight: bold"></h4>
+            </div>
+        </div>
+        <div id="headerTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+            <div class="simpleHeaderItem">
+                <h2 data-win-bind="innerText: title"></h2>
+            </div>
+        </div>
+        <div id="hub-list"
+            data-win-control="WinJS.UI.ListView"
+            data-win-options="{
+                itemDataSource: HubContents.groupedList.dataSource,
+                itemTemplate: select('#hubItemTemplate'),
+                groupHeaderTemplate: headerTemplate,
+                selectionMode: 'none',
+                swipeBehavior: 'none',
+                groupDataSource: HubContents.groupedList.groups.dataSource
+            }">
+        </div>
+    </div>
 </body>
 </html>

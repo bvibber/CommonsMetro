@@ -5,6 +5,33 @@
 
     WinJS.Binding.optimizeBindingReferences = true;
 
+    WinJS.Namespace.define("HubContents", {
+        itemList: new WinJS.Binding.List([])
+    });
+    (function () {
+        // Create the groups for the ListView from the item data and the grouping functions
+        HubContents.groupedList = HubContents.itemList.createGrouped(getGroupKey, getGroupData, compareGroups);
+
+        // Function used to sort the groups
+        // Note: This is similar to default sorting behavior 
+        //   when using WinJS.Binding.List.createGrouped()
+        function compareGroups(left, right) {
+            return (left < right) ? -1 : 1;
+        }
+
+        // Function which returns the group key that an item belongs to
+        function getGroupKey(dataItem) {
+            return dataItem.group;
+        }
+
+        // Function which returns the data for a group
+        function getGroupData(dataItem) {
+            return {
+                title: dataItem.groupText
+            };
+        }
+    })();
+
     var app = WinJS.Application;
     var activation = Windows.ApplicationModel.Activation;
 
@@ -17,7 +44,11 @@
                 // TODO: This application has been reactivated from suspension.
                 // Restore application state here.
             }
-            args.setPromise(WinJS.UI.processAll());
+            var all = WinJS.UI.processAll();
+            all.done(function () {
+                setupHub();
+            });
+            args.setPromise(all);
         }
     };
 
@@ -31,4 +62,50 @@
     };
 
     app.start();
+
+    function setupHub() {
+        var list = HubContents.itemList;
+        var n = 0;
+        for (var group in cats) {
+            console.log(group);
+            cats[group].forEach(function (cat) {
+                n++;
+                var imageid = 'hubImage' + n;
+                list.push({
+                    title: cat,
+                    group: group,
+                    groupText: group,
+                    image: '#',
+                    imageid: imageid
+                });
+                loadCategoryImage(cat).done(function (imageinfo) {
+                    $('#' + imageid).attr('src', imageinfo.thumburl);
+                });
+            });
+        }
+    }
+
+    function loadCategoryImage(category) {
+        return new WinJS.Promise(function (complete, err, progress) {
+            console.log('WWWWW ' + category);
+            Commons.request({
+                action: 'query',
+                list: 'categorymembers',
+                cmtitle: 'Category:' + category,
+                cmtype: 'file',
+                cmlimit: 10
+            }).done(function (data) {
+                var members = data.query.categorymembers;
+                if (members.length == 0) {
+                    // fail
+                    complete('empty');
+                } else {
+                    var img = members[0].title.replace(/^File:/, '');
+                    var fetcher = new ImageFetcher(150, 150);
+                    fetcher.request(img).done(complete);
+                    fetcher.send();
+                }
+            });
+        });
+    }
 })();

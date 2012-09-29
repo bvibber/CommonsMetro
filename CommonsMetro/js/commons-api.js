@@ -11,7 +11,8 @@
         }, params);
         return $.ajax({
             url: Commons.apiUrl,
-            data: xparams
+            data: xparams,
+            dataType: 'json'
         });
     }
 
