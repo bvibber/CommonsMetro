@@ -65,21 +65,22 @@
 
     function setupHub() {
         var list = HubContents.itemList;
-        var n = 0;
         for (var group in cats) {
             console.log(group);
             cats[group].forEach(function (cat) {
-                n++;
-                var imageid = 'hubImage' + n;
-                list.push({
+                var item = {
                     title: cat,
                     group: group,
                     groupText: group,
                     image: '#',
-                    imageid: imageid
-                });
+                    style: 'photo-item'
+                };
                 loadCategoryImage(cat).done(function (imageinfo) {
-                    $('#' + imageid).attr('src', imageinfo.thumburl);
+                    if (imageinfo) {
+                        //$('#' + imageid).attr('src', imageinfo.thumburl);
+                        item.image = imageinfo.thumburl;
+                        list.push(item);
+                    }
                 });
             });
         }
@@ -87,7 +88,6 @@
 
     function loadCategoryImage(category) {
         return new WinJS.Promise(function (complete, err, progress) {
-            console.log('WWWWW ' + category);
             Commons.request({
                 action: 'query',
                 list: 'categorymembers',

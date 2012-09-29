@@ -36,8 +36,8 @@ ImageFetcher.prototype.send = function() {
     if (this.height) {
         data.iiurlheight = this.height;
     }
-    Commons.request('GET', data).done(function(data) {
-        if(!data.query) {
+    Commons.request(data).done(function(data) {
+        if (!data.query) {
             console.log('no return image data');
             return;
         }

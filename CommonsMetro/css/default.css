@@ -1,6 +1,16 @@
 ﻿body {
 }
 
+.photo-item {
+    width: 150px;
+    height: 150px;
+    position: relative;
+}
+.photo-item h4 {
+    position: absolute;
+    bottom: 0px;
+}
+
 @media screen and (-ms-view-state: fullscreen-landscape) {
 }
 
